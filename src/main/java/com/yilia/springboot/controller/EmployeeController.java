@@ -22,4 +22,9 @@ public class EmployeeController {
 		model.addAttribute("emps", employees);
 		return "emp/list";
 	}
+	
+	@GetMapping("/emp")
+	public String toAddPage() {
+		return("emp/add");
+	}
 }
