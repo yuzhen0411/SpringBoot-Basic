@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.yilia.springboot.dao.DepartmentDao;
 import com.yilia.springboot.dao.EmployeeDao;
@@ -32,9 +34,10 @@ public class EmployeeController {
 	//turn to add page
 	@GetMapping("/emp")
 	public String toAddPage(Model model) {
+		//list all departments option
 		Collection<Department> departments = departmentDao.getDepartments();
 		model.addAttribute("depts", departments);
-		return("emp/add");
+		return "emp/add";
 	}
 	
 	//add employee
@@ -43,5 +46,23 @@ public class EmployeeController {
 		System.out.println("已新增員工: " + employee);
 		employeeDao.save(employee);
 		return"redirect:/emps";
+	}
+	
+	//turn to edit page
+	@GetMapping("/emp/{id}")
+	public String toEditPage(@PathVariable("id") Integer id, Model model) {
+		Employee employee = employeeDao.get(id);
+		model.addAttribute("emp", employee);
+		
+		Collection<Department> departments = departmentDao.getDepartments();
+		model.addAttribute("depts", departments);
+		return "emp/add";		
+	}
+	
+	@PutMapping("/emp")
+	public String updateEmployee(Employee employee) {
+		System.out.println("更新後員工資訊: " + employee);
+		employeeDao.save(employee);
+		return "redirect:/emps";
 	}
 }
