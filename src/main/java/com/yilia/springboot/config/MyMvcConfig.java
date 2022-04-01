@@ -36,9 +36,10 @@ public class MyMvcConfig implements WebMvcConfigurer{
 				registry.addViewController("/main.html").setViewName("dashboard");
 			}
 			
+			@Override
 			public void addInterceptors(InterceptorRegistry registry) {
-				registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").
-						excludePathPatterns("/index.html", "/", "/asserts/**", "/webjars/**", "/user/login");
+//				registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").
+//						excludePathPatterns("/index.html", "/", "/asserts/**", "/webjars/**", "/user/login");
 			}
 		};
 		return configurer;
