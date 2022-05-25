@@ -17,9 +17,9 @@ public class LoginController {
 						@RequestParam("password") String password,
 						Map<String, Object> map,
 						HttpSession session) {
+		//session存放登入的用戶
 		if(StringUtils.hasText(username) && "123456".equals(password)) {
 			session.setAttribute("loginUser", username);
-			//default path is templates folder based on thymleaf, and do not need ".html"
 			return "redirect:/main.html";
 		}
 		else {

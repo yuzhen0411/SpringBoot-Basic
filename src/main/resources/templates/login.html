@@ -13,13 +13,17 @@
 	</head>
 
 	<body class="text-center">
+		<!-- th:action呼應 LoginController-->
 		<form class="form-signin" action="dashboard.html" th:action="@{/user/login}" method="post">
 			<img class="mb-4" th:src="@{/asserts/img/bootstrap-solid.svg}" src="asserts/img/bootstrap-solid.svg" alt="" width="72" height="72">
 			<h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
+			<!-- th:text 呼應LoginController中login方法裡的變數msg，顯示錯誤提示資訊 -->
 			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
 			<label class="sr-only" th:text="#{login.username}">Username</label>
+			<!-- name="username"呼應LoginController中login方法傳入的參數@RequestParam("username")" -->
 			<input type="text" name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" autofocus="">
 			<label class="sr-only" th:text="#{login.password}">Password</label>
+			<!-- name="password"呼應LoginController中login方法傳入的參數@RequestParam("password")" -->
 			<input type="password" name="password" class="form-control" placeholder="Password" th:placeholder="#{login.password}" required="">
 			<div class="checkbox mb-3">
 				<label>

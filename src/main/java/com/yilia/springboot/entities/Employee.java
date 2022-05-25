@@ -1,5 +1,7 @@
 package com.yilia.springboot.entities;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Employee {
@@ -61,14 +63,24 @@ public class Employee {
         this.birth = birth;
     }
     public Employee(Integer id, String lastName, String email, Integer gender,
-                    Department department) {
+                    Department department, String birthStr) {
         super();
         this.id = id;
         this.lastName = lastName;
         this.email = email;
         this.gender = gender;
         this.department = department;
-        this.birth = new Date();
+//        this.birth = new Date();
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date birth = null;
+		try {
+			birth = formatter.parse(birthStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        this.birth = birth;
     }
 
     public Employee() {

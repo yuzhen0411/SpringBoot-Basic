@@ -43,10 +43,14 @@
 	</head>
 
 	<body>
+		<!-- 引用bar.html的topbar區塊 -->
+		<!-- 模板名: 使用thymleaf的前後綴格式進行解析，即commons/bar.html中fragment=topbar區塊 -->
 		<div th:replace="commons/bar::topbar"></div>
 
 		<div class="container-fluid">
 			<div class="row">
+				<!-- 引用bar.html的sidebar選擇器區塊 -->
+				<!-- 執行此區塊時，同時傳入變數activeUri=emps -->
 				<div th:replace="commons/bar::#sidebar(activeUri='emps')"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
@@ -68,11 +72,13 @@
 									<td th:text="${emp.id}"></td>
 									<td> [[${emp.lastName}]]</td>
 									<td th:text="${emp.email}"></td>
-									<td th:text="${emp.gender}==0?'女':'男'"></td>
+									<td th:text="${emp.gender}==0?'Female':'Male'"></td>
 									<td th:text="${emp.department.departmentName}"></td>
-									<td th:text="${#dates.format(emp.birth, 'yyyy-MM-dd HH:mm')}"></td>
+									<td th:text="${#dates.format(emp.birth, 'yyyy-MM-dd')}"></td>
 									<td>
 										<a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">編輯</a>
+										<!-- <button>標籤無法使用th:href超連接，故使用th:attr="del_uri=@{/emp/}+${emp.id}"，
+												利用th:attr設定屬性名del_uri及其值-->
 										<button th:attr="del_uri=@{/emp/}+${emp.id}" class="btn btn-sm btn-danger deleteBtn">刪除</button>
 										
 									</td>
@@ -90,6 +96,8 @@
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
+		
+		<!-- 引用 JavaScript 程式碼，將外部的.js 檔引入至當前文檔中 -->
 		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"></script>
 		<script type="text/javascript" src="asserts/js/popper.min.js"></script>
 		<script type="text/javascript" src="asserts/js/bootstrap.min.js"></script>
@@ -99,6 +107,7 @@
 		<script>
 			feather.replace()
 		</script>
+		<!-- 獲取當前deleteBtn的del_uri屬性，按下刪除按鈕後，表單位址即改成此url，提交後方能刪除該員工-->
 		<script>
 			$(".deleteBtn").click(function(){
 				$("#deleteEmpForm").attr("action",$(this).attr("del_uri")).submit();

@@ -28,28 +28,31 @@ public class EmployeeController {
 	@GetMapping("/emps")
 	public String list(Model model) {
 		Collection<Employee> employees = employeeDao.getAll();
+		
 		model.addAttribute("emps", employees);
 		return "emp/list";
 	}
 	
-	//turn to add page
+	//至員工新增頁面
 	@GetMapping("/emp")
 	public String toAddPage(Model model) {
-		//list all departments option
+		//部門選項中列出所有部門供選
 		Collection<Department> departments = departmentDao.getDepartments();
 		model.addAttribute("depts", departments);
+		
 		return "emp/add";
 	}
 	
-	//add employee
+	//新增員工
 	@PostMapping("/emp")
 	public String addEmp(Employee employee) {
-		System.out.println("已新增員工: " + employee);
+		
 		employeeDao.save(employee);
+		
 		return"redirect:/emps";
 	}
 	
-	//turn to edit page
+	//至員工編輯頁面
 	@GetMapping("/emp/{id}")
 	public String toEditPage(@PathVariable("id") Integer id, Model model) {
 		Employee employee = employeeDao.get(id);
@@ -60,13 +63,15 @@ public class EmployeeController {
 		return "emp/add";		
 	}
 	
+	//編輯員工，並儲存
 	@PutMapping("/emp")
 	public String updateEmployee(Employee employee) {
-		System.out.println("更新後員工資訊: " + employee);
 		employeeDao.save(employee);
+		
 		return "redirect:/emps";
 	}
 	
+	//刪除員工
 	@DeleteMapping("/emp/{id}")
 	public String deleteEmployee(@PathVariable("id") Integer id) {
 		employeeDao.delete(id);
